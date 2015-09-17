@@ -74,7 +74,7 @@ namespace LastPass
                                         byte[] encryptionKey,
                                         RSAParameters privateKey)
         {
-            var accounts = new List<Account>(chunks.Count(i => i.Id == "ACCT"));
+            var entries = new List<IEntry>(chunks.Count(i => i.Id == "ACCT"));
             SharedFolder folder = null;
 
             foreach (var i in chunks)
@@ -96,9 +96,9 @@ namespace LastPass
                 }
             }
 
-            return accounts.ToArray();
+            return entries.ToArray();
         }
 
-        public Account[] Accounts { get; private set; }
+        public IEntry[] Entries { get; private set; }
     }
 }

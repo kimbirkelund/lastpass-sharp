@@ -3,8 +3,7 @@
 
 namespace LastPass
 {
-    // TODO: Rename Group to Path since it reflects the actual meaning better.
-    public class Account
+    public class Account : IEntry
     {
         public Account(string id, string name, string username, string password, string url, string group)
         {
