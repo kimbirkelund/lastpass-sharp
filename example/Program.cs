@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using LastPass;
 
 namespace Example
@@ -52,28 +53,32 @@ namespace Example
             {
                 // Fetch and create the vault from LastPass
                 var vault = Vault.Open(username,
-                                       password,
-                                       new ClientInfo(Platform.Desktop, id, description, false),
-                                       new TextUi());
+                    password,
+                    new ClientInfo(Platform.Desktop, id, description, false),
+                    new TextUi());
 
                 // Dump all the accounts
-                for (var i = 0; i < vault.Accounts.Length; ++i)
+                foreach (var (entry, index)in vault.Entries.Select((e, i) => (e, i)))
                 {
-                    var account = vault.Accounts[i];
-                    Console.WriteLine("{0}:\n" +
-                                      "        id: {1}\n" +
-                                      "      name: {2}\n" +
-                                      "  username: {3}\n" +
-                                      "  password: {4}\n" +
-                                      "       url: {5}\n" +
-                                      "     group: {6}\n",
-                                      i + 1,
-                                      account.Id,
-                                      account.Name,
-                                      account.Username,
-                                      account.Password,
-                                      account.Url,
-                                      account.Group);
+                    switch (entry)
+                    {
+                        case Account account:
+                            Console.WriteLine($@"{index + 1}:
+        id: {account.Id}
+      name: {account.Name}
+  username: {account.Username}
+  password: {account.Password}
+       url: {account.Url}
+     group: {account.Group}");
+                            break;
+
+                        case GenericNote genericNote:
+                            Console.WriteLine($@"{index + 1}:
+        id: {genericNote.Id}
+      name: {genericNote.Name}
+  contents: {genericNote.Contents}");
+                            break;
+                    }
                 }
             }
             catch (LoginException e)

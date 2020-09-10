@@ -61,7 +61,7 @@ namespace LastPass
                         privateKey = ParserHelper.ParseEcryptedPrivateKey(blob.EncryptedPrivateKey,
                                                                           encryptionKey);
 
-                    Accounts = ParseAccounts(chunks, encryptionKey, privateKey);
+                    Entries = ParseEntries(chunks, encryptionKey, privateKey);
                 });
         }
 
@@ -70,7 +70,7 @@ namespace LastPass
             return chunks.Count > 0 && chunks.Last().Id == "ENDM" && chunks.Last().Payload.SequenceEqual("OK".ToBytes());
         }
 
-        private Account[] ParseAccounts(List<ParserHelper.Chunk> chunks,
+        private IEntry[] ParseEntries(List<ParserHelper.Chunk> chunks,
                                         byte[] encryptionKey,
                                         RSAParameters privateKey)
         {
@@ -88,7 +88,7 @@ namespace LastPass
                         folder);
 
                     if (account != null)
-                        accounts.Add(account);
+                        entries.Add(account);
                     break;
                 case "SHAR":
                     folder = ParserHelper.Parse_SHAR(i, encryptionKey, privateKey);
@@ -99,6 +99,6 @@ namespace LastPass
             return entries.ToArray();
         }
 
-        public IEntry[] Entries { get; private set; }
+        public IReadOnlyList<IEntry> Entries { get; private set; }
     }
 }
