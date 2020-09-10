@@ -34,10 +34,11 @@ namespace LastPass.Test
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Unknown ASN.1 tag 13")]
         public void Asn1_ParseItem_throws_on_invalid_tag()
         {
-            Asn1.ParseItem("0D04DEADBEEF".DecodeHex());
+            Assert.Throws<ArgumentException>(
+                () => Asn1.ParseItem("0D04DEADBEEF".DecodeHex()),
+                "Unknown ASN.1 tag 13");
         }
 
         [Test]

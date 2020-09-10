@@ -32,17 +32,19 @@ namespace LastPass.Test
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Iteration count should be positive\r\nParameter name: iterationCount")]
         public void MakeKey_throws_on_zero_iterationCount()
         {
-            FetcherHelper.MakeKey(Username, Password, 0);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => FetcherHelper.MakeKey(Username, Password, 0),
+                "Iteration count should be positive\r\nParameter name: iterationCount");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Iteration count should be positive\r\nParameter name: iterationCount")]
         public void MakeKey_throws_on_negative_iterationCount()
         {
-            FetcherHelper.MakeKey(Username, Password, -1);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => FetcherHelper.MakeKey(Username, Password, -1),
+                "Iteration count should be positive\r\nParameter name: iterationCount");
         }
 
         [Test]
@@ -67,17 +69,19 @@ namespace LastPass.Test
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Iteration count should be positive\r\nParameter name: iterationCount")]
         public void MakeHash_throws_on_zero_iterationCount()
         {
-            FetcherHelper.MakeHash(Username, Password, 0);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => FetcherHelper.MakeHash(Username, Password, 0),
+                "Iteration count should be positive\r\nParameter name: iterationCount");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Iteration count should be positive\r\nParameter name: iterationCount")]
         public void MakeHash_throws_on_negative_iterationCount()
         {
-            FetcherHelper.MakeHash(Username, Password, -1);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => FetcherHelper.MakeHash(Username, Password, -1),
+                "Iteration count should be positive\r\nParameter name: iterationCount");
         }
 
         private const string Username = "postlass@gmail.com";

@@ -61,17 +61,19 @@ namespace LastPass.Test
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Input length must be multiple of 2")]
         public void DecodeHex_throws_on_odd_length()
         {
-            "0".DecodeHex();
+            Assert.Throws<ArgumentException>(
+                () => "0".DecodeHex(),
+                "Input length must be multiple of 2");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Input contains invalid characters")]
         public void DecodeHex_throws_on_non_hex_characters()
         {
-            "xz".DecodeHex();
+            Assert.Throws<ArgumentException>(
+                () => "xz".DecodeHex(),
+                "Input contains invalid characters");
         }
 
         [Test]
