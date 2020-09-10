@@ -10,3 +10,6 @@ test/obj/
 lastpass-sharp.suo
 lastpass-sharp.*.suo
 lastpass-sharp.sln.DotSettings.user
+.vs/
+_Resharper*/
+*.user
